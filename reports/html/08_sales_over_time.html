@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sales Over Time Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f7f9fc;
+      color: #1f2937;
+    }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      background: white;
+      padding: 35px;
+      border-radius: 18px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+    h1 { color: #0f172a; }
+    h2 { margin-top: 30px; }
+    img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .highlight {
+      background: #eef2ff;
+      padding: 15px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Demand Forecasting Report</h1>
+    <h2>Sales Over Time Analysis</h2>
+
+    <p>This report analyzes how sales evolve over time for a specific store-item pair.</p>
+
+    <h2>Visualization</h2>
+    <img src="../figures/sales_trend.png" alt="Sales Trend">
+
+    <h2>Key Insights</h2>
+    <div class="highlight">
+      <ul>
+        <li><b>Upward trend:</b> demand increases over time</li>
+        <li><b>Strong seasonality:</b> recurring yearly patterns</li>
+        <li><b>High variability:</b> fluctuations and spikes</li>
+      </ul>
+    </div>
+
+    <h2>Business Interpretation</h2>
+    <p>
+      Sales growth combined with seasonal patterns indicates stable but evolving demand.
+      External events such as promotions likely influence spikes.
+    </p>
+
+    <h2>Modeling Implications</h2>
+    <ul>
+      <li>Include trend and seasonal features</li>
+      <li>Use lag-based inputs</li>
+      <li>Combine with promotion data</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>
+      Demand is influenced by trend, seasonality, and irregular events.
+      A comprehensive forecasting approach is required.
+    </p>
+
+  </div>
+</body>
+</html>

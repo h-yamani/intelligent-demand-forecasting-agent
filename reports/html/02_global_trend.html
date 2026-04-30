@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Global Daily Sales Trend Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f7f9fc;
+      color: #1f2937;
+    }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      background: white;
+      padding: 35px;
+      border-radius: 18px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+    h1 {
+      color: #0f172a;
+      font-size: 34px;
+    }
+    h2 {
+      color: #2563eb;
+      margin-top: 30px;
+    }
+    img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+    }
+    .card {
+      background: #f1f5f9;
+      padding: 20px;
+      border-radius: 14px;
+      margin-top: 20px;
+    }
+    .business {
+      background: #ecfdf5;
+      border-left: 6px solid #22c55e;
+    }
+    .conclusion {
+      background: #fff7ed;
+      border-left: 6px solid #f97316;
+      font-weight: bold;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Global Daily Sales Trend Report</h1>
+
+    <img src="../figures/02_global_trend.png" alt="Global Daily Sales Trend">
+
+    <div class="card">
+      <h2>What does this plot show?</h2>
+      <p>
+        This plot shows total daily sales aggregated across all stores and items from 2019 to 2024.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Key Observations</h2>
+      <ul>
+        <li><b>Strong yearly seasonality:</b> Sales rise and fall in a repeating yearly pattern.</li>
+        <li><b>Positive trend:</b> Sales peaks become higher over time, suggesting demand growth.</li>
+        <li><b>Weekly pattern:</b> High-frequency fluctuations suggest weekday effects.</li>
+        <li><b>Peak periods:</b> Highest demand appears around mid-year periods.</li>
+        <li><b>Low periods:</b> Demand is lower near the beginning of each year.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Technical Interpretation</h2>
+      <p>
+        The time series contains both long-term trend and seasonal structure. A reliable forecasting model should capture annual seasonality, weekly effects, and gradual demand growth over time.
+      </p>
+    </div>
+
+    <div class="card business">
+      <h2>Business Implications</h2>
+      <ul>
+        <li>Increase inventory before peak demand periods.</li>
+        <li>Plan promotions during lower-demand periods.</li>
+        <li>Allocate more staff or resources during expected high-demand windows.</li>
+        <li>Use forecasting to support operational and financial planning.</li>
+      </ul>
+    </div>
+
+    <div class="card conclusion">
+      <h2>Conclusion</h2>
+      <p>
+        The sales data shows strong seasonality and an upward trend, making time-series forecasting essential for accurate demand prediction and decision support.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

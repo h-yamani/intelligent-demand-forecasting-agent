@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Single Time-Series Trend Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f7f9fc;
+      color: #1f2937;
+    }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      background: white;
+      padding: 35px;
+      border-radius: 18px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+    h1 {
+      color: #0f172a;
+      font-size: 32px;
+    }
+    h2 {
+      margin-top: 30px;
+      color: #1e293b;
+    }
+    p {
+      line-height: 1.6;
+    }
+    img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .highlight {
+      background: #eef2ff;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    ul {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Demand Forecasting Report</h1>
+    <h2>Single Time-Series Analysis (Store 1 - Item 1)</h2>
+
+    <p>
+      This report analyzes the sales behavior of a single store-item pair over time to understand demand patterns and forecasting challenges.
+    </p>
+
+    <h2>Sales Trend</h2>
+    <img src="../figures/03_single_series_trend.png" alt="Sales Trend">
+
+    <h2>Key Insights</h2>
+    <div class="highlight">
+      <ul>
+        <li><b>Strong seasonality:</b> clear yearly and weekly patterns</li>
+        <li><b>Upward trend:</b> gradual increase in demand over time</li>
+        <li><b>High variability:</b> frequent spikes and fluctuations</li>
+        <li><b>Noisy signal:</b> requires robust modeling approach</li>
+      </ul>
+    </div>
+
+    <h2>Business Interpretation</h2>
+    <p>
+      Demand is influenced by time-based patterns and external factors such as promotions.
+      The presence of spikes suggests reactive demand behavior.
+    </p>
+
+    <h2>Modeling Implications</h2>
+    <ul>
+      <li>Use lag features (t-1, t-7, t-30)</li>
+      <li>Include rolling statistics</li>
+      <li>Capture calendar features</li>
+      <li>Use tree-based models like LightGBM or XGBoost</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>
+      This time series exhibits seasonal patterns, growth trends, and irregular spikes.
+      Accurate forecasting requires capturing all these components.
+    </p>
+
+  </div>
+</body>
+</html>
