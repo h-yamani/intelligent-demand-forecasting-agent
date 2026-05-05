@@ -1,0 +1,19 @@
+data:
+  raw_path: archive/retail_sales.csv
+
+split:
+  train_end: "2022-06-30"
+  valid_end: "2023-03-31"
+
+model:
+  type: lightgbm
+  n_estimators: 500
+  learning_rate: 0.05
+  num_leaves: 64
+  random_state: 42
+
+output:
+  model_path: models/lgbm_model.pkl
+  feature_list_path: models/feature_list.json
+  metrics_path: reports/modeling/metrics.json
+  feature_importance_path: reports/figures/feature_importance.png
