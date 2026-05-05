@@ -45,8 +45,5 @@ agents/ (planned)
 pip install -r requirements.txt  
 PYTHONPATH=. python notebooks/08_feature_analysis.py  
 
----
 
-## About
-PhD Candidate in Reinforcement Learning focused on efficient learning systems and applied AI.
 
