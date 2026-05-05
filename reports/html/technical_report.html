@@ -1,0 +1,212 @@
+<h1>Intelligent Demand Forecasting System</h1>
+
+<h2>Technical Report</h2>
+
+<hr />
+
+<h2>1. Introduction</h2>
+
+<p>This project develops a production-oriented demand forecasting system with a focus on understanding temporal structure, feature engineering, and predictive modeling.</p>
+
+<p>The objective is not only to build accurate models, but to analyze and justify the data generation process through structured feature design.</p>
+
+<hr />
+
+<h2>2. Problem Formulation</h2>
+
+<p>The dataset represents a multi-series time series forecasting problem:</p>
+
+<ul>
+<li>Multiple store-item combinations</li>
+<li>Daily observations</li>
+<li>Target: sales</li>
+</ul>
+
+<p>The key challenge is to capture:
+- temporal dependencies
+- seasonality
+- external effects (promotion, price)</p>
+
+<hr />
+
+<h2>3. Time Series Characteristics</h2>
+
+<h3>3.1 Trend and Noise</h3>
+
+<p>Sales data exhibits high short-term volatility but a clear underlying trend.</p>
+
+<ul>
+<li>Noise dominates raw observations</li>
+<li>Rolling statistics reveal stable patterns</li>
+</ul>
+
+<h3>3.2 Seasonality</h3>
+
+<p>Two strong seasonal structures are present:</p>
+
+<ul>
+<li>Weekly seasonality (day-of-week effects)</li>
+<li>Monthly/yearly seasonality (long-term cycles)</li>
+</ul>
+
+<h3>3.3 Temporal Dependency</h3>
+
+<p>Autocorrelation analysis shows:</p>
+
+<ul>
+<li>strong dependency across time</li>
+<li>repeating periodic structure</li>
+<li>non-random behavior</li>
+</ul>
+
+<hr />
+
+<h2>4. Feature Engineering Strategy</h2>
+
+<p>Feature engineering transforms raw data into structured signals.</p>
+
+<h3>4.1 Lag Features (Memory)</h3>
+
+<ul>
+<li>sales<em>lag</em>1, 7, 14, 30</li>
+</ul>
+
+<p>These capture temporal dependency and repeating patterns.</p>
+
+<h3>4.2 Rolling Features (Trend)</h3>
+
+<ul>
+<li>rolling<em>mean</em>7, 30</li>
+<li>rolling_std</li>
+</ul>
+
+<p>These extract signal from noise and stabilize learning.</p>
+
+<h3>4.3 Expanding Features (Long-Term Behavior)</h3>
+
+<ul>
+<li>expanding_mean</li>
+</ul>
+
+<p>Captures historical baseline demand.</p>
+
+<h3>4.4 Calendar Features (Seasonality)</h3>
+
+<ul>
+<li>dayofweek, month</li>
+<li>cyclical encoding (sin/cos)</li>
+</ul>
+
+<p>Captures periodic structure.</p>
+
+<h3>4.5 Price Features</h3>
+
+<ul>
+<li>price_change</li>
+<li>price_lag</li>
+</ul>
+
+<p>Weak standalone signal, but useful in interactions.</p>
+
+<h3>4.6 Promotion Features</h3>
+
+<ul>
+<li>promo_lag</li>
+<li>promo_rolling</li>
+</ul>
+
+<p>Strong driver of demand spikes.</p>
+
+<h3>4.7 Aggregate Features</h3>
+
+<ul>
+<li>store<em>avg</em>sales</li>
+<li>item<em>avg</em>sales</li>
+</ul>
+
+<p>Provide global context.</p>
+
+<hr />
+
+<h2>5. Feature Validation</h2>
+
+<h3>5.1 Lag Analysis</h3>
+
+<p>Lag features show strong correlation with current sales, confirming temporal dependency.</p>
+
+<h3>5.2 Rolling Analysis</h3>
+
+<p>Rolling averages effectively reveal underlying trends.</p>
+
+<h3>5.3 Seasonality Analysis</h3>
+
+<p>Clear weekly and monthly patterns validate calendar features.</p>
+
+<h3>5.4 Autocorrelation</h3>
+
+<p>Confirms structured memory and periodic behavior.</p>
+
+<h3>5.5 Correlation Analysis</h3>
+
+<ul>
+<li>Temporal features: strong predictors</li>
+<li>Promotion: moderate impact</li>
+<li>Price: weak direct effect</li>
+</ul>
+
+<h3>5.6 Distribution Analysis</h3>
+
+<p>Sales distribution is right-skewed, indicating:
+- non-linear structure
+- presence of extreme events</p>
+
+<hr />
+
+<h2>6. Modeling Implications</h2>
+
+<p>Based on analysis:</p>
+
+<ul>
+<li>Time dependency must be modeled explicitly</li>
+<li>Tree-based models (LightGBM/XGBoost) are appropriate</li>
+<li>Feature interactions are critical</li>
+<li>Linear models are insufficient</li>
+</ul>
+
+<hr />
+
+<h2>7. Key Insights</h2>
+
+<ul>
+<li>Demand is driven primarily by temporal structure</li>
+<li>Weekly repetition is a dominant signal</li>
+<li>Promotions significantly increase demand</li>
+<li>Price alone is not a strong predictor</li>
+<li>Noise must be filtered to extract signal</li>
+</ul>
+
+<hr />
+
+<h2>8. Conclusion</h2>
+
+<p>This project demonstrates that effective demand forecasting requires:</p>
+
+<ul>
+<li>deep understanding of time series behavior</li>
+<li>structured feature engineering</li>
+<li>validation of assumptions through analysis</li>
+</ul>
+
+<p>The resulting system moves beyond basic modeling toward a production-ready, interpretable forecasting pipeline.</p>
+
+<hr />
+
+<h2>9. Future Work</h2>
+
+<ul>
+<li>Model training with feature importance analysis</li>
+<li>MLflow integration</li>
+<li>API deployment</li>
+<li>Agent-based decision system</li>
+</ul>
+
