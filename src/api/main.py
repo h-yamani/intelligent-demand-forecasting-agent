@@ -31,7 +31,7 @@ def health():
 @app.post("/predict", response_model=PredictionResponse)
 def predict(request: PredictionRequest):
 
-    prediction = predict_demand(request.dict())
+    prediction = predict_demand(request.model_dump())
     prediction_rounded = round(prediction, 2)
 
     if prediction_rounded >= 35:
