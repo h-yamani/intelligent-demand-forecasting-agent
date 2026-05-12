@@ -37,7 +37,7 @@ joblib.dump(model, "models/lgbm_model.pkl")
 
 importances = model.feature_importances_
 
-plt.figure(figsize=(10,5))
+plt.figure(figsize=(10, 5))
 plt.barh(X_train.columns, importances)
 plt.title("Feature Importance")
 plt.tight_layout()

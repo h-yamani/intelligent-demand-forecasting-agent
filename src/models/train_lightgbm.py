@@ -30,8 +30,8 @@ df = create_features(df)
 
 train = df[df["date"] <= config["split"]["train_end"]]
 valid = df[
-    (df["date"] > config["split"]["train_end"]) &
-    (df["date"] <= config["split"]["valid_end"])
+    (df["date"] > config["split"]["train_end"])
+    & (df["date"] <= config["split"]["valid_end"])
 ]
 test = df[df["date"] > config["split"]["valid_end"]]
 
@@ -60,7 +60,7 @@ with mlflow.start_run(run_name="lightgbm_forecasting_model"):
         n_estimators=config["model"]["n_estimators"],
         learning_rate=config["model"]["learning_rate"],
         num_leaves=config["model"]["num_leaves"],
-        random_state=config["model"]["random_state"]
+        random_state=config["model"]["random_state"],
     )
 
     model.fit(X_train, y_train, eval_set=[(X_valid, y_valid)])
@@ -87,10 +87,9 @@ with mlflow.start_run(run_name="lightgbm_forecasting_model"):
     with open(config["output"]["feature_list_path"], "w") as f:
         json.dump(list(X_train.columns), f, indent=4)
 
-    importance = pd.DataFrame({
-        "feature": X_train.columns,
-        "importance": model.feature_importances_
-    }).sort_values("importance", ascending=False)
+    importance = pd.DataFrame(
+        {"feature": X_train.columns, "importance": model.feature_importances_}
+    ).sort_values("importance", ascending=False)
 
     plt.figure(figsize=(12, 8))
     top_features = importance.head(20)

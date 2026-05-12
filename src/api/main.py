@@ -7,25 +7,17 @@ from src.api.schemas import (
 
 from src.api.predict import predict_demand
 
-
-app = FastAPI(
-    title="Intelligent Demand Forecasting API",
-    version="1.0.0"
-)
+app = FastAPI(title="Intelligent Demand Forecasting API", version="1.0.0")
 
 
 @app.get("/")
 def home():
-    return {
-        "message": "Demand Forecasting API is running"
-    }
+    return {"message": "Demand Forecasting API is running"}
 
 
 @app.get("/health")
 def health():
-    return {
-        "status": "healthy"
-    }
+    return {"status": "healthy"}
 
 
 @app.post("/predict", response_model=PredictionResponse)
@@ -63,5 +55,5 @@ def predict(request: PredictionRequest):
         anomaly_warning=anomaly_warning,
         forecast_summary=forecast_summary,
         model_name="LightGBM Demand Forecasting Model",
-        model_version="1.0.0"
+        model_version="1.0.0",
     )

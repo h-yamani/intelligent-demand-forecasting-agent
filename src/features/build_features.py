@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+
 def create_features(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     df["date"] = pd.to_datetime(df["date"])
@@ -38,9 +39,7 @@ def create_features(df: pd.DataFrame) -> pd.DataFrame:
     )
 
     df["promo_lag_1"] = df.groupby(group_cols)["promo"].shift(1)
-    df["promo_rolling_7"] = (
-        df.groupby(group_cols)["promo"].shift(1).rolling(7).sum()
-    )
+    df["promo_rolling_7"] = df.groupby(group_cols)["promo"].shift(1).rolling(7).sum()
 
     df["store_avg_sales"] = df.groupby("store_id")["sales"].transform("mean")
     df["item_avg_sales"] = df.groupby("item_id")["sales"].transform("mean")

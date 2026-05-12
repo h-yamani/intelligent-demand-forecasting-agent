@@ -2,7 +2,6 @@ from fastapi.testclient import TestClient
 
 from src.api.main import app
 
-
 client = TestClient(app)
 
 
@@ -27,7 +26,7 @@ def test_predict():
         "item_id": "item_1",
         "price": 20.5,
         "promo": 1,
-        "date": "2023-04-15"
+        "date": "2023-04-15",
     }
 
     response = client.post("/predict", json=payload)

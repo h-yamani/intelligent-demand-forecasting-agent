@@ -2,7 +2,6 @@ import json
 import joblib
 import pandas as pd
 
-
 MODEL_PATH = "models/lgbm_model.pkl"
 FEATURE_LIST_PATH = "models/feature_list.json"
 
