@@ -15,5 +15,8 @@ class PredictionResponse(BaseModel):
     forecast_date: str
     predicted_demand: float
     recommendation: str
+    confidence_level: str
+    anomaly_warning: str
+    forecast_summary: str
     model_name: str
     model_version: str
