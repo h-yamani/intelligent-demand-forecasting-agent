@@ -4,6 +4,8 @@ import joblib
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import mlflow
+import mlflow.lightgbm
 
 from lightgbm import LGBMRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error
@@ -49,44 +51,54 @@ for col in ["store_id", "item_id"]:
     X_valid[col] = X_valid[col].astype("category")
     X_test[col] = X_test[col].astype("category")
 
-model = LGBMRegressor(
-    n_estimators=config["model"]["n_estimators"],
-    learning_rate=config["model"]["learning_rate"],
-    num_leaves=config["model"]["num_leaves"],
-    random_state=config["model"]["random_state"]
-)
+mlflow.set_experiment("demand_forecasting_lightgbm")
 
-model.fit(X_train, y_train, eval_set=[(X_valid, y_valid)])
+with mlflow.start_run(run_name="lightgbm_forecasting_model"):
+    mlflow.log_params(config["model"])
 
-preds = model.predict(X_test)
+    model = LGBMRegressor(
+        n_estimators=config["model"]["n_estimators"],
+        learning_rate=config["model"]["learning_rate"],
+        num_leaves=config["model"]["num_leaves"],
+        random_state=config["model"]["random_state"]
+    )
 
-metrics = {
-    "model": "lightgbm",
-    "MAE": mean_absolute_error(y_test, preds),
-    "RMSE": mean_squared_error(y_test, preds, squared=False),
-    "MAPE": mape(y_test, preds),
-    "WAPE": wape(y_test, preds),
-}
+    model.fit(X_train, y_train, eval_set=[(X_valid, y_valid)])
 
-print(metrics)
+    preds = model.predict(X_test)
 
-with open(config["output"]["metrics_path"], "w") as f:
-    json.dump(metrics, f, indent=4)
+    metrics = {
+        "MAE": mean_absolute_error(y_test, preds),
+        "RMSE": mean_squared_error(y_test, preds, squared=False),
+        "MAPE": mape(y_test, preds),
+        "WAPE": wape(y_test, preds),
+    }
 
-joblib.dump(model, config["output"]["model_path"])
+    print(metrics)
 
-with open(config["output"]["feature_list_path"], "w") as f:
-    json.dump(list(X_train.columns), f, indent=4)
+    mlflow.log_metrics(metrics)
 
-importance = pd.DataFrame({
-    "feature": X_train.columns,
-    "importance": model.feature_importances_
-}).sort_values("importance", ascending=False)
+    with open(config["output"]["metrics_path"], "w") as f:
+        json.dump({"model": "lightgbm", **metrics}, f, indent=4)
 
-plt.figure(figsize=(12, 8))
-plt.barh(importance["feature"][:20][::-1], importance["importance"][:20][::-1])
-plt.title("Top 20 Feature Importances")
-plt.tight_layout()
-plt.savefig(config["output"]["feature_importance_path"])
+    joblib.dump(model, config["output"]["model_path"])
+    mlflow.lightgbm.log_model(model, "model")
+
+    with open(config["output"]["feature_list_path"], "w") as f:
+        json.dump(list(X_train.columns), f, indent=4)
+
+    importance = pd.DataFrame({
+        "feature": X_train.columns,
+        "importance": model.feature_importances_
+    }).sort_values("importance", ascending=False)
+
+    plt.figure(figsize=(12, 8))
+    top_features = importance.head(20)
+    plt.barh(top_features["feature"].iloc[::-1], top_features["importance"].iloc[::-1])
+    plt.title("Top 20 Feature Importances")
+    plt.tight_layout()
+    plt.savefig(config["output"]["feature_importance_path"])
+
+    mlflow.log_artifact(config["output"]["feature_importance_path"])
 
 print("LightGBM training completed.")

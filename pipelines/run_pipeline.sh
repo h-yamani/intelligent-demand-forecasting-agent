@@ -3,10 +3,12 @@
 echo "========== Baseline Model =========="
 PYTHONPATH=. python src/models/train_baseline.py
 
-echo "========== LightGBM Model =========="
+echo "========== LightGBM + MLflow =========="
 PYTHONPATH=. python src/models/train_lightgbm.py
 
 echo "========== Error Analysis =========="
 PYTHONPATH=. python src/evaluation/error_analysis.py
 
-echo "========== Training pipeline completed successfully =========="
+echo "========== Pipeline Finished =========="
+echo "Launch MLflow UI with:"
+echo "mlflow ui"
