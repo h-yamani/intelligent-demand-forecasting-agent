@@ -1,60 +1,39 @@
-# AWS Deployment Foundations
-
-## Objective
-
-Prepare the AWS cloud foundation required for deploying the Intelligent Demand Forecasting platform safely and professionally.
-
 ---
 
-# Planned AWS Architecture
+# AWS CLI Setup
 
-User
-↓
-FastAPI Forecast API
-↓
-Docker Container
-↓
-EC2 Instance
-↓
-Model Artifacts from S3
+## Purpose
 
----
+AWS CLI allows the project to interact with AWS from the terminal for deployment and automation.
 
-# AWS Services Planned
+## Installation
 
-## EC2
-Purpose:
-Host Dockerized FastAPI forecasting service.
+```bash
+sudo snap install aws-cli --classic
+```
 
-## S3
-Purpose:
-Store:
-- trained models
-- reports
-- deployment artifacts
-- backups
+## Verify Installation
 
-## IAM
-Purpose:
-Control permissions and security access.
+```bash
+aws --version
+```
 
-## CloudWatch (future)
-Purpose:
-Logging and monitoring.
+Current verified version:
 
----
+```text
+aws-cli/2.34.45
+```
 
-# Learning Checklist
+## Planned CLI Usage
 
-- [ ] Understand AWS account structure
-- [ ] Configure billing alerts
-- [ ] Install AWS CLI
-- [ ] Understand IAM users and roles
-- [ ] Understand EC2 basics
-- [ ] Understand S3 buckets
-- [ ] Understand security groups
-- [ ] Learn Docker deployment on EC2
-- [ ] Plan deployment workflow
+- Upload model artifacts to S3
+- Manage EC2 deployment
+- Automate cloud setup
+- Support future GitHub Actions deployment workflows
+
+## IAM Best Practice
+
+Use an IAM user for daily development and deployment work instead of the AWS root account.
 
 ---
 
