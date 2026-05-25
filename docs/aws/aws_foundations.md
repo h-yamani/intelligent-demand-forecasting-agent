@@ -43,10 +43,45 @@ Deploy FastAPI forecasting API inside Docker container on EC2 instance.
 
 ---
 
-# Future Goals
+---
 
-- automated deployment
-- Docker registry publishing
+# S3 Artifact Storage
+
+## Configured Bucket
+
+```text
+forecasting-mlops-artifacts-321157465881-us-east-1-an
+```
+
+## Uploaded Artifacts
+
+- LightGBM trained model
+- feature list
+- evaluation metrics
+- baseline metrics
+- error analysis reports
+
+## Upload Script
+
+```text
+scripts/upload_artifacts_to_s3.py
+```
+
+## AWS SDK
+
+Project uses:
+
+```text
+boto3
+```
+
+for programmatic interaction with Amazon S3.
+
+## Example Upload Command
+
+```bash
+python scripts/upload_artifacts_to_s3.py
+```
 - monitoring
 - HTTPS
 - load balancing

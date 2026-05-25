@@ -1,13 +1,41 @@
-from fastapi import FastAPI
+import logging
+import time
+from pathlib import Path
 
-from src.api.schemas import (
-    PredictionRequest,
-    PredictionResponse,
-)
+from fastapi import FastAPI, Request
 
 from src.api.predict import predict_demand
+from src.api.schemas import PredictionRequest, PredictionResponse
+
+LOG_DIR = Path("logs")
+LOG_DIR.mkdir(exist_ok=True)
+
+logging.basicConfig(
+    filename=LOG_DIR / "api.log",
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s",
+)
 
 app = FastAPI(title="Intelligent Demand Forecasting API", version="1.0.0")
+
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    start_time = time.time()
+
+    response = await call_next(request)
+
+    process_time = round(time.time() - start_time, 4)
+
+    logging.info(
+        "method=%s path=%s status_code=%s latency_seconds=%s",
+        request.method,
+        request.url.path,
+        response.status_code,
+        process_time,
+    )
+
+    return response
 
 
 @app.get("/")
@@ -22,8 +50,18 @@ def health():
 
 @app.post("/predict", response_model=PredictionResponse)
 def predict(request: PredictionRequest):
+    request_data = request.model_dump()
 
-    prediction = predict_demand(request.model_dump())
+    logging.info(
+        "prediction_request store_id=%s item_id=%s date=%s price=%s promo=%s",
+        request.store_id,
+        request.item_id,
+        request.date,
+        request.price,
+        request.promo,
+    )
+
+    prediction = predict_demand(request_data)
     prediction_rounded = round(prediction, 2)
 
     if prediction_rounded >= 35:
@@ -43,6 +81,17 @@ def predict(request: PredictionRequest):
         f"Expected demand for {request.item_id} at {request.store_id} "
         f"on {request.date} is {prediction_rounded}. "
         f"Recommended action: {recommendation}."
+    )
+
+    logging.info(
+        "prediction_response store_id=%s item_id=%s predicted_demand=%s "
+        "recommendation=%s confidence_level=%s anomaly_warning=%s",
+        request.store_id,
+        request.item_id,
+        prediction_rounded,
+        recommendation,
+        confidence_level,
+        anomaly_warning,
     )
 
     return PredictionResponse(
