@@ -5,7 +5,7 @@ from pathlib import Path
 from fastapi import FastAPI, Request
 
 from src.agents.orchestrator import DemandDecisionOrchestrator
-from src.api.schemas import PredictionRequest, PredictionResponse
+from src.api.agentic_schema import PredictionRequest, PredictionResponse
 
 LOG_DIR = Path("logs")
 LOG_DIR.mkdir(exist_ok=True)
@@ -61,6 +61,8 @@ def home():
         "mode": "agentic",
         "agents": [
             "ForecastAgent",
+            "TrendAnalysisAgent",
+            "AnomalyDetectionAgent",
             "InventoryAgent",
         ],
     }
@@ -148,6 +150,9 @@ def predict(request: PredictionRequest):
         recommendation=recommendation,
         confidence_level=confidence_level,
         anomaly_warning=anomaly_warning,
+        trend=decision_result["trend"],
+        trend_reason=decision_result["trend_reason"],
+        anomaly_severity=decision_result["anomaly_severity"],
         forecast_summary=forecast_summary,
         model_name="Agentic LightGBM Demand Forecasting System",
         model_version="1.0.0",
