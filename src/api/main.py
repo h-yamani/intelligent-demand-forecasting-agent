@@ -23,12 +23,23 @@ app = FastAPI(title="Intelligent Demand Forecasting API", version="1.0.0")
 async def log_requests(request: Request, call_next):
     start_time = time.time()
 
-    response = await call_next(request)
+    try:
+        response = await call_next(request)
+    except Exception as exc:
+        process_time = round(time.time() - start_time, 4)
+        logging.exception(
+            "request_failed method=%s path=%s latency_seconds=%s error=%s",
+            request.method,
+            request.url.path,
+            process_time,
+            str(exc),
+        )
+        raise
 
     process_time = round(time.time() - start_time, 4)
 
     logging.info(
-        "method=%s path=%s status_code=%s latency_seconds=%s",
+        "request_completed method=%s path=%s status_code=%s latency_seconds=%s",
         request.method,
         request.url.path,
         response.status_code,
@@ -61,8 +72,34 @@ def predict(request: PredictionRequest):
         request.promo,
     )
 
-    prediction = predict_demand(request_data)
-    prediction_rounded = round(prediction, 2)
+    try:
+        prediction = predict_demand(request_data)
+        prediction_rounded = round(prediction, 2)
+    except Exception as exc:
+        logging.exception(
+            "prediction_failed store_id=%s item_id=%s date=%s error=%s",
+            request.store_id,
+            request.item_id,
+            request.date,
+            str(exc),
+        )
+        raise
+
+    if prediction_rounded > 100:
+        logging.warning(
+            "high_prediction_detected store_id=%s item_id=%s predicted_demand=%s",
+            request.store_id,
+            request.item_id,
+            prediction_rounded,
+        )
+
+    if prediction_rounded < 0:
+        logging.warning(
+            "negative_prediction_detected store_id=%s item_id=%s predicted_demand=%s",
+            request.store_id,
+            request.item_id,
+            prediction_rounded,
+        )
 
     if prediction_rounded >= 35:
         recommendation = "Increase inventory"
