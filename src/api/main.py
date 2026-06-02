@@ -61,8 +61,18 @@ def predict(request: PredictionRequest):
         request.promo,
     )
 
-    prediction = predict_demand(request_data)
-    prediction_rounded = round(prediction, 2)
+    try:
+        prediction = predict_demand(request_data)
+        prediction_rounded = round(prediction, 2)
+    except Exception as exc:
+        logging.exception(
+            "prediction_failed store_id=%s item_id=%s date=%s error=%s",
+            request.store_id,
+            request.item_id,
+            request.date,
+            str(exc),
+        )
+        raise
 
     if prediction_rounded >= 35:
         recommendation = "Increase inventory"
