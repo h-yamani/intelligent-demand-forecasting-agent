@@ -4,7 +4,7 @@ from pathlib import Path
 
 from fastapi import FastAPI, Request
 
-from src.agents.langgraph_orchestrator import LangGraphDemandDecisionOrchestrator
+from src.agents.orchestrator import DemandDecisionOrchestrator
 from src.api.agentic_schema import PredictionRequest, PredictionResponse
 
 LOG_DIR = Path("logs")
@@ -21,7 +21,7 @@ app = FastAPI(
     version="1.0.0",
 )
 
-orchestrator = LangGraphDemandDecisionOrchestrator()
+orchestrator = DemandDecisionOrchestrator()
 
 
 @app.middleware("http")
