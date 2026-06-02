@@ -1,7 +1,9 @@
 class AnomalyDetectionAgent:
     """Detects unusual demand, price, and promotion patterns."""
 
-    def run(self, request_data: dict, predicted_demand: float, trend_result: dict) -> dict:
+    def run(
+        self, request_data: dict, predicted_demand: float, trend_result: dict
+    ) -> dict:
         price = float(request_data.get("price", 0))
         promo = int(request_data.get("promo", 0))
         trend = trend_result.get("trend", "unknown")
