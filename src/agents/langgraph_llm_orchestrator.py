@@ -60,7 +60,9 @@ class LangGraphDemandDecisionOrchestrator:
         inventory_result = self.inventory_agent.run(state["predicted_demand"])
         return {**state, "inventory_result": inventory_result}
 
-    def _inventory_optimization_node(self, state: DemandDecisionState) -> DemandDecisionState:
+    def _inventory_optimization_node(
+        self, state: DemandDecisionState
+    ) -> DemandDecisionState:
         optimization_result = self.inventory_optimization_agent.run(
             predicted_demand=state["predicted_demand"],
         )
@@ -86,7 +88,9 @@ class LangGraphDemandDecisionOrchestrator:
         workflow.add_node("trend_analysis_agent", self._trend_node)
         workflow.add_node("anomaly_detection_agent", self._anomaly_node)
         workflow.add_node("inventory_decision_agent", self._inventory_node)
-        workflow.add_node("inventory_optimization_agent", self._inventory_optimization_node)
+        workflow.add_node(
+            "inventory_optimization_agent", self._inventory_optimization_node
+        )
         workflow.add_node("llm_reasoning_agent", self._llm_reasoning_node)
 
         workflow.set_entry_point("forecast_agent")

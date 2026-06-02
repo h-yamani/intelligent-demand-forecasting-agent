@@ -123,8 +123,6 @@ def predict(request: PredictionRequest):
             predicted_demand,
         )
 
- 
-
     logging.info(
         "agentic_prediction_response store_id=%s item_id=%s predicted_demand=%s "
         "recommendation=%s confidence_level=%s anomaly_warning=%s agents=%s",
@@ -156,12 +154,18 @@ def predict(request: PredictionRequest):
         },
         inventory_optimization={
             "current_stock": decision_result["inventory_optimization"]["current_stock"],
-            "lead_time_days": decision_result["inventory_optimization"]["lead_time_days"],
+            "lead_time_days": decision_result["inventory_optimization"][
+                "lead_time_days"
+            ],
             "safety_stock": decision_result["inventory_optimization"]["safety_stock"],
             "reorder_point": decision_result["inventory_optimization"]["reorder_point"],
-            "recommended_order_quantity": decision_result["inventory_optimization"]["recommended_order_quantity"],
+            "recommended_order_quantity": decision_result["inventory_optimization"][
+                "recommended_order_quantity"
+            ],
             "stockout_risk": decision_result["inventory_optimization"]["stockout_risk"],
-            "overstock_risk": decision_result["inventory_optimization"]["overstock_risk"],
+            "overstock_risk": decision_result["inventory_optimization"][
+                "overstock_risk"
+            ],
             "decision": decision_result["inventory_optimization"]["decision"],
         },
         explanation={

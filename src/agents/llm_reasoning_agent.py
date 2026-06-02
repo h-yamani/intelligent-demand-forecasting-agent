@@ -39,11 +39,17 @@ class LLMReasoningAgent:
         ]
 
         if stockout_risk == "high" or anomaly_severity == "high":
-            risk_assessment = "High operational risk. Immediate inventory review is recommended."
+            risk_assessment = (
+                "High operational risk. Immediate inventory review is recommended."
+            )
         elif stockout_risk == "medium" or anomaly_severity == "medium":
-            risk_assessment = "Medium operational risk. Inventory should be monitored closely."
+            risk_assessment = (
+                "Medium operational risk. Inventory should be monitored closely."
+            )
         else:
-            risk_assessment = "Low operational risk. No urgent intervention is required."
+            risk_assessment = (
+                "Low operational risk. No urgent intervention is required."
+            )
 
         next_best_actions = [
             decision,
