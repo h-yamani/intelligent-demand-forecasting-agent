@@ -51,6 +51,17 @@ if st.sidebar.button("Generate Forecast"):
         col2.metric("Recommendation", decision["recommendation"])
         col3.metric("Stockout Risk", optimization["stockout_risk"])
         col4.metric("Order Quantity", optimization["recommended_order_quantity"])
+        chart_data = {
+            "Metric": ["Predicted Demand", "Current Stock", "Reorder Point"],
+            "Value": [
+                forecast["predicted_demand"],
+                optimization["current_stock"],
+                optimization["reorder_point"],
+            ],
+        }
+
+        st.subheader("Forecast vs Inventory Position")
+        st.bar_chart(chart_data, x="Metric", y="Value")
 
         st.divider()
 
@@ -81,11 +92,39 @@ if st.sidebar.button("Generate Forecast"):
         st.divider()
 
         st.subheader("Agent Reasoning")
+        st.subheader("Agent Workflow")
+
+        st.markdown("""
+            Forecast Agent
+                  ➜ Trend Analysis Agent
+                  ➜ Anomaly Detection Agent
+                  ➜ Inventory Optimization Agent
+                  ➜ LLM Reasoning Agent
+            """)
         for step in explanation["reasoning_steps"]:
             st.write(f"- {step}")
 
         st.subheader("Risk Assessment")
-        st.warning(explanation["risk_assessment"])
+
+        risk_col1, risk_col2 = st.columns(2)
+
+        with risk_col1:
+            if optimization["stockout_risk"] == "high":
+                st.error("Stockout risk: high")
+            elif optimization["stockout_risk"] == "medium":
+                st.warning("Stockout risk: medium")
+            else:
+                st.success("Stockout risk: low")
+
+        with risk_col2:
+            if optimization["overstock_risk"] == "high":
+                st.error("Overstock risk: high")
+            elif optimization["overstock_risk"] == "medium":
+                st.warning("Overstock risk: medium")
+            else:
+                st.success("Overstock risk: low")
+
+        st.info(explanation["risk_assessment"])
 
         st.subheader("Next Best Actions")
         for action in explanation["next_best_actions"]:
