@@ -8,3 +8,18 @@ mlruns/
 mlflow.db
 __pycache__/
 *.pyc
+
+# Generated logs and runtime files
+logs/
+*.log
+
+# MLflow local tracking
+mlruns/
+mlflow.db
+
+# Model artifacts generated locally
+sagemaker/model_artifacts/
+
+# Python cache
+__pycache__/
+*.pyc
