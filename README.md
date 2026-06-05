@@ -1,351 +1,327 @@
-# Intelligent Demand Forecasting and Agent-Based Decision System
+# Intelligent Demand Forecasting & Agent-Based Decision Platform
 
-## Production-Oriented Machine Learning and MLOps Platform
-
----
-
-# Project Vision
-
-This project is designed as a production-oriented Machine Learning and MLOps platform rather than a simple research notebook. The objective is to demonstrate the ability to design, build, evaluate, automate, deploy, monitor, and scale a real-world machine learning system using modern ML engineering practices.
-
-The platform focuses on:
-
-* multi-series retail demand forecasting
-* intelligent business decision support
-* automated ML workflows
-* experiment tracking and reproducibility
-* deployment-ready APIs
-* containerized infrastructure
-* cloud-ready architecture
-* agent-based AI systems
+## Production-Grade Machine Learning, MLOps, Agentic AI, and Cloud Deployment System
 
 ---
 
-# Key Features
+## Overview
 
-## Machine Learning
+The Intelligent Demand Forecasting & Agent-Based Decision Platform is an end-to-end Machine Learning Engineering and AI Engineering project designed to demonstrate production-oriented forecasting, MLOps, cloud deployment, agentic AI workflows, and business decision support.
+
+Unlike traditional forecasting projects that focus solely on model training, this platform covers the complete machine learning lifecycle:
+
+* Data Engineering
+* Feature Engineering
+* Forecasting
+* Model Evaluation
+* Experiment Tracking
+* MLOps Automation
+* API Development
+* Docker Containerization
+* AWS Deployment
+* Agent-Based Decision Systems
+* LLM-Powered Business Reasoning
+* Interactive Business Dashboards
+
+The system forecasts retail demand and transforms predictions into actionable inventory decisions through a multi-agent decision architecture.
+
+---
+
+## Key Highlights
+
+### Machine Learning
 
 * Multi-series retail demand forecasting
-* Baseline forecasting model
-* Advanced LightGBM forecasting model
+* LightGBM forecasting model
 * Time-series feature engineering
-* Forecast evaluation using multiple metrics
+* Forecast evaluation and diagnostics
 * Feature importance analysis
-* Prediction error analysis
+* Error analysis workflows
 
-## MLOps
+### Agentic AI
 
-* Automated ML pipeline
+* Forecast Agent
+* Trend Analysis Agent
+* Anomaly Detection Agent
+* Inventory Optimization Agent
+* LLM Reasoning Agent
+* LangGraph orchestration workflow
+
+### MLOps
+
+* Automated training pipeline
 * MLflow experiment tracking
 * Model artifact management
-* Reproducible workflows
-* Automated testing and quality checks
+* CI/CD workflows
+* Automated testing and validation
+* Monitoring and observability
 
-## Deployment & Engineering
+### Cloud & Deployment
 
-* FastAPI production inference API
+* FastAPI inference service
 * Docker containerization
-* CI/CD-ready architecture
-* Modular scalable codebase
+* AWS deployment workflows
+* SageMaker-compatible inference
+* Cloud-ready architecture
 
-## Intelligent Systems
+### Business Intelligence
 
-* Agent-based decision system architecture
-* Forecast explanation workflows
-* Inventory recommendation system
+* Interactive Streamlit dashboard
+* Executive summaries
+* Inventory recommendations
+* Risk assessment
+* Agent reasoning visualization
 
 ---
 
-# System Architecture
+## End-to-End System Architecture
 
 ```text
-Raw Retail Data
+Retail Sales Data
         ↓
 Feature Engineering
         ↓
-LightGBM Forecasting
+LightGBM Forecasting Model
         ↓
-Evaluation Metrics
+Model Evaluation
         ↓
 MLflow Experiment Tracking
         ↓
 Automated Training Pipeline
         ↓
-FastAPI Inference API
+FastAPI Inference Service
         ↓
 Docker Containerization
         ↓
-Cloud Deployment
+AWS / SageMaker Deployment
         ↓
-Agent-Based Decision System
+LangGraph Agent System
+        ↓
+Inventory Optimization
+        ↓
+LLM Business Reasoning
+        ↓
+Streamlit Executive Dashboard
 ```
 
 ---
 
-# Dataset
+## Agent-Based Decision Architecture
 
-## Dataset Structure
+The platform extends traditional forecasting systems with a multi-agent decision layer.
 
-| Column | Description |
-|--------|-------------|
-| date | transaction date |
-| store_id | store identifier |
-| item_id | item identifier |
-| sales | target variable |
-| price | product price |
-| promo | promotion flag |
+### Forecast Agent
+
+Responsibilities:
+
+* Generate demand forecasts
+* Produce model predictions
+* Supply forecasting outputs to downstream agents
+
+### Trend Analysis Agent
+
+Responsibilities:
+
+* Identify demand trends
+* Explain forecast behavior
+* Detect demand shifts
+
+### Anomaly Detection Agent
+
+Responsibilities:
+
+* Detect unusual forecast patterns
+* Identify operational anomalies
+* Assess anomaly severity
+
+### Inventory Optimization Agent
+
+Responsibilities:
+
+* Calculate reorder points
+* Calculate safety stock
+* Estimate stockout risk
+* Estimate overstock risk
+* Recommend order quantities
+
+### LLM Reasoning Agent
+
+Responsibilities:
+
+* Generate executive summaries
+* Explain agent decisions
+* Produce business-oriented recommendations
+* Translate model outputs into actionable insights
+
+### Agent Workflow
+
+```text
+Forecast Agent
+        ↓
+Trend Analysis Agent
+        ↓
+Anomaly Detection Agent
+        ↓
+Inventory Optimization Agent
+        ↓
+LLM Reasoning Agent
+```
 
 ---
 
-# Forecasting Signals Modeled
+## Executive Dashboard
 
-The forecasting system captures:
+The project includes a business-facing Streamlit dashboard.
 
-* temporal trends
-* weekly seasonality
-* monthly seasonality
-* lag dependencies
-* rolling demand behavior
-* promotion effects
-* price-demand relationships
-* store-item demand patterns
+### Dashboard Features
+
+* Demand forecasting visualization
+* Trend analysis visualization
+* Anomaly monitoring
+* Inventory optimization recommendations
+* Risk assessment indicators
+* Agent workflow visualization
+* Executive summaries
+* Decision explanations
+
+### Launch Dashboard
+
+```bash
+streamlit run src/dashboard/app.py
+```
+
+Dashboard URL:
+
+```text
+http://localhost:8501
+```
 
 ---
 
-# Feature Engineering
+## FastAPI Inference Service
 
-## Time Features
+The project provides a production-oriented inference API.
+
+### API Features
+
+* Request validation
+* Forecast generation
+* Inventory recommendations
+* Agent-based reasoning
+* Health monitoring
+* Interactive Swagger documentation
+
+### Launch API
+
+```bash
+PYTHONPATH=. uvicorn src.api.agentic_main_llm:app --host 0.0.0.0 --port 8002
+```
+
+### API Documentation
+
+```text
+http://127.0.0.1:8002/docs
+```
+
+---
+
+## Example Prediction Request
+
+```json
+{
+  "store_id": "STORE_001",
+  "item_id": "ITEM_001",
+  "price": 9.99,
+  "promo": 1,
+  "date": "2026-06-02"
+}
+```
+
+---
+
+## Example Prediction Response
+
+```json
+{
+  "forecast": {
+    "store_id": "STORE_001",
+    "item_id": "ITEM_001",
+    "forecast_date": "2026-06-02",
+    "predicted_demand": 15.45
+  },
+  "decision": {
+    "recommendation": "Maintain current stock level",
+    "confidence_level": "high"
+  },
+  "analysis": {
+    "trend": "stable",
+    "anomaly_warning": "No anomaly detected"
+  },
+  "inventory_optimization": {
+    "recommended_order_quantity": 31,
+    "stockout_risk": "medium",
+    "overstock_risk": "low"
+  }
+}
+```
+
+---
+
+## Machine Learning Pipeline
+
+### Feature Engineering
+
+Time-based Features
 
 * weekday
 * month
 * year
 
-## Lag Features
+Lag Features
 
 * lag_1
 * lag_7
 * lag_30
 
-## Rolling Statistics
+Rolling Statistics
 
 * rolling_mean_7
 * rolling_std_7
 
-## Business Features
+Business Features
 
-* promotion indicators
+* promotions
 * pricing information
-* aggregate demand statistics
+* demand aggregates
+
+### Forecasting Model
+
+Primary model:
+
+* LightGBM
+
+Evaluation metrics:
+
+* MAE
+* RMSE
+* MAPE
+* WAPE
 
 ---
 
-# Forecasting Models
+## MLOps & Experiment Tracking
 
-## Baseline Forecasting Model
+### MLflow Integration
 
-A lag-based baseline forecasting model was implemented to establish a minimum performance benchmark.
+Tracked components:
 
-### Baseline Strategy
+* parameters
+* metrics
+* model artifacts
+* feature importance
+* experiment runs
 
-```text
-Tomorrow's sales ≈ sales from 7 days ago
-```
-
----
-
-## Advanced LightGBM Forecasting Model
-
-The primary forecasting model uses LightGBM.
-
-### Why LightGBM?
-
-LightGBM is widely used in industry because it:
-
-* performs strongly on tabular forecasting data
-* trains efficiently on large datasets
-* supports scalable workflows
-* provides feature importance analysis
-* handles non-linear relationships effectively
-
-### Model Configuration
-
-```yaml
-model:
-  type: lightgbm
-  n_estimators: 500
-  learning_rate: 0.05
-  num_leaves: 64
-  random_state: 42
-```
-
----
-
-# Model Evaluation
-
-## Implemented Metrics
-
-| Metric | Description |
-|--------|-------------|
-| MAE | Mean Absolute Error |
-| RMSE | Root Mean Squared Error |
-| MAPE | Mean Absolute Percentage Error |
-| WAPE | Weighted Absolute Percentage Error |
-
----
-
-# Error Analysis
-
-The project includes automated prediction error analysis.
-
-## Implemented Analysis
-
-* prediction error distribution
-* worst-performing store-item pairs
-* summary error statistics
-* large-error diagnostics
-
----
-
-# Automated ML Pipeline
-
-The project includes an automated ML pipeline.
-
-## Automated Workflow
-
-```text
-1. Data loading
-2. Feature engineering
-3. Baseline training
-4. LightGBM training
-5. Evaluation
-6. Error analysis
-7. Artifact generation
-8. MLflow tracking
-```
-
-## Run Training Pipeline
-
-```bash
-PYTHONPATH=. python src/pipeline/run_training_pipeline.py
-```
-
----
-
-# FastAPI Inference Service
-
-The project includes a production-oriented FastAPI inference API.
-
-## API Features
-
-* structured request validation
-* forecasting inference
-* business recommendations
-* model metadata
-* health monitoring endpoint
-* interactive Swagger documentation
-
----
-
-# Running the API with Docker
-
-## 1. Build Docker Image
-
-```bash
-docker build -t intelligent-demand-api .
-```
-
----
-
-## 2. Run Docker Container
-
-```bash
-docker run -p 8000:8000 intelligent-demand-api
-```
-
-Expected output:
-
-```text
-INFO:     Started server process
-INFO:     Application startup complete.
-INFO:     Uvicorn running on http://0.0.0.0:8000
-```
-
----
-
-## 3. Open API Documentation
-
-Open:
-
-```text
-http://127.0.0.1:8000/docs
-```
-
----
-
-# Available API Endpoints
-
-| Endpoint | Method | Purpose |
-|----------|--------|----------|
-| `/` | GET | API status |
-| `/health` | GET | Health monitoring |
-| `/predict` | POST | Demand forecasting |
-
----
-
-# Example Prediction Request
-
-```json
-{
-  "store_id": "store_1",
-  "item_id": "item_1",
-  "price": 20.5,
-  "promo": 1,
-  "date": "2023-04-15"
-}
-```
-
----
-
-# Example Prediction Response
-
-```json
-{
-  "store_id": "store_1",
-  "item_id": "item_1",
-  "forecast_date": "2023-04-15",
-  "predicted_demand": 13.24,
-  "recommendation": "Maintain current stock level",
-  "confidence_level": "high",
-  "anomaly_warning": "No anomaly detected",
-  "forecast_summary": "Expected demand for item_1 at store_1 on 2023-04-15 is 13.24. Recommended action: Maintain current stock level.",
-  "model_name": "LightGBM Demand Forecasting Model",
-  "model_version": "1.0.0"
-}
-```
-
----
-
-# MLflow Experiment Tracking
-
-The system integrates MLflow for experiment management.
-
-## Tracked Components
-
-* model parameters
-* training runs
-* evaluation metrics
-* feature importance artifacts
-* trained model artifacts
-
-## MLflow Features Used
-
-* experiment tracking
-* metrics logging
-* artifact logging
-* reproducibility workflows
-* model lifecycle management
-
-## Launch MLflow UI
+Launch MLflow:
 
 ```bash
 mlflow ui
@@ -359,66 +335,89 @@ http://127.0.0.1:5000
 
 ---
 
-# Testing & Software Quality
+## AWS & SageMaker Deployment
 
-The project includes professional software quality workflows.
+### Cloud Components
 
-## Implemented Quality Controls
+* Amazon EC2
+* Amazon S3
+* Amazon SageMaker
+* Docker Containers
 
-* API endpoint testing
-* feature engineering testing
-* configuration testing
-* automated pytest workflows
-* Black code formatting
-* Ruff static analysis
+### Deployment Capabilities
 
-## Run Tests
+* containerized inference
+* cloud-ready deployment
+* scalable serving
+* reproducible model packaging
+
+---
+
+## Monitoring & Observability
+
+Implemented monitoring capabilities include:
+
+* API request logging
+* prediction logging
+* health monitoring
+* operational diagnostics
+* monitoring documentation
+
+---
+
+## Software Quality & Testing
+
+### Quality Controls
+
+* Pytest
+* Ruff
+* Black
+* GitHub Actions
+* CI/CD validation
+
+Run tests:
 
 ```bash
 PYTHONPATH=. pytest
 ```
 
-## Run Formatting
-
-```bash
-black src tests
-```
-
-## Run Static Analysis
+Run static analysis:
 
 ```bash
 ruff check src tests
 ```
 
----
+Run formatting:
 
-# Dockerization
-
-The project is fully containerized using Docker.
-
-## Dockerized Components
-
-* FastAPI service
-* LightGBM inference model
-* Python environment
-* dependencies and runtime libraries
+```bash
+black src tests
+```
 
 ---
 
-# Project Structure
+## Repository Structure
 
 ```text
 intelligent-demand-agent/
 │
 ├── config/
+├── docs/
+│   ├── aws/
+│   ├── monitoring/
+│   └── dashboard.md
+│
 ├── models/
 ├── reports/
+├── sagemaker/
 ├── src/
+│   ├── agents/
 │   ├── api/
+│   ├── dashboard/
 │   ├── evaluation/
 │   ├── features/
 │   ├── models/
 │   └── pipeline/
+│
 ├── tests/
 ├── Dockerfile
 ├── requirements.txt
@@ -427,54 +426,83 @@ intelligent-demand-agent/
 
 ---
 
-# Technologies Used
+## Technology Stack
 
-## Machine Learning
+### Machine Learning
 
 * Python
 * Pandas
 * NumPy
-* scikit-learn
+* Scikit-Learn
 * LightGBM
-* XGBoost
 
-## MLOps & Engineering
+### Agentic AI
+
+* LangGraph
+* LangChain
+
+### APIs
+
+* FastAPI
+* Pydantic
+
+### MLOps
 
 * MLflow
-* FastAPI
+* GitHub Actions
 * Docker
 * Pytest
 * Ruff
 * Black
-* GitHub
 
-## Cloud & Infrastructure
+### Cloud
 
-* AWS deployment planning
-* Containerized ML systems
-* Cloud-ready architecture
+* AWS
+* SageMaker
+* EC2
+* S3
 
----
+### Dashboard
 
-# Future Improvements
-
-* Transformer forecasting models
-* advanced anomaly detection
-* monitoring dashboards
-* LangChain/LangGraph orchestration
-* LLM-powered forecast explanations
-* Kubernetes deployment
+* Streamlit
 
 ---
 
-# Author
+## Documentation
 
-## Hoda Yamani
-
-ML Engineer | Reinforcement Learning & Applied AI | Forecasting & Intelligent Systems
+| Document                    | Description                  |
+| --------------------------- | ---------------------------- |
+| docs/dashboard.md           | Dashboard documentation      |
+| docs/aws/                   | AWS deployment documentation |
+| docs/monitoring/            | Monitoring documentation     |
+| reports/technical_report.md | Technical report             |
 
 ---
 
-# License
+## Project Status
 
-This project is intended for educational, research, and portfolio purposes.
+Current Version: v1.0
+
+Completed:
+
+* Demand forecasting
+* Agent-based decision system
+* Inventory optimization
+* Dashboard visualization
+* FastAPI deployment
+* Docker containerization
+* AWS deployment workflows
+* SageMaker integration
+* Monitoring
+* CI/CD automation
+
+---
+
+## Author
+
+### Hoda Yamani
+
+AI & Machine Learning Engineer | Reinforcement Learning Researcher
+
+
+
