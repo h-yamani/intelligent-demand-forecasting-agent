@@ -1,9 +1,9 @@
-import pandas as pd
 import joblib
 import matplotlib.pyplot as plt
-
+import pandas as pd
 from lightgbm import LGBMRegressor
 from sklearn.metrics import mean_squared_error
+
 from src.features.build_features import create_features
 
 df = pd.read_csv("archive/retail_sales.csv")
