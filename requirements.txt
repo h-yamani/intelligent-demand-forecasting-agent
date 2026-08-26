@@ -10,8 +10,8 @@ matplotlib
 mlflow
 pytest
 httpx
-black
-ruff
+black==26.5.1
+ruff==0.16.4
 xgboost
 openpyxl
 langgraph
