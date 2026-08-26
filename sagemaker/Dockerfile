@@ -2,12 +2,18 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-COPY requirements.txt .
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir -r requirements.txt
+COPY sagemaker/requirements.txt /app/requirements.txt
 
-COPY inference/ inference/
+RUN pip install --no-cache-dir -r /app/requirements.txt
+
+COPY sagemaker/inference/ /app/inference/
 
 ENV PYTHONPATH="/app"
 
-CMD ["python"]
+EXPOSE 8080
+
+ENTRYPOINT ["python", "/app/inference/serve.py"]
